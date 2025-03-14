@@ -86,7 +86,7 @@ When your team is ready to submit or update a smart contract, follow these steps
    ```
 
 4. **Add your smart contract files**
-   - Create your contract file: `teams/YOUR-TEAM-NAME/contract.cpp`
+   - Create your contract file: `teams/YOUR-TEAM-NAME/contract.h`
    - Create a README explaining your contract: `teams/YOUR-TEAM-NAME/README.md`
    - Include any other necessary files
 
@@ -319,7 +319,7 @@ Check the [examples directory](https://github.com/qubic/ts-library/tree/main/tes
 ├── README.md                  # This file - general information
 └── teams/                     # Directory containing team submissions
     └── {team-name}/           # Your team directory (create during PR)
-        ├── contract.cpp       # Smart contract code
+        ├── contract.h       # Smart contract code
         └── README.md          # Description of your contract
 ```
 
