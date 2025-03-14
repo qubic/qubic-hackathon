@@ -197,8 +197,12 @@ For development and testing, you can use the online [Smart Contract IDE](https:/
 For smart contract examples, you can explore the official Qubic smart contracts:
 
 - [Official Qubic Smart Contracts](https://github.com/qubic/core/tree/main/src/contracts)
+- [Contract Core Functions](https://github.com/qubic/core/tree/main/src/contract_core)
+- [Platform Functions](https://github.com/qubic/core/tree/main/src/platform)
 
 These examples can be viewed and tested in the [Smart Contract IDE](https://qubicdev.com/smart-contract-tester.html).
+
+Since our core smart contract library is still in development, you can utilize functions from both the contract core and platform libraries. If you encounter a missing function, feel free to add it to the appropriate core or platform files. For any questions, post them on the dev channel for guidance.
 
 Some notable examples include:
 - Asset management contracts
