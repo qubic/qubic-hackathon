@@ -195,6 +195,19 @@ For development and testing, you can use the online [Smart Contract IDE](https:/
 - Syntax highlighting and code completion
 - AI-powered suggestions for optimization and security improvements
 
+### Smart Contract Examples
+For smart contract examples, you can explore the official Qubic smart contracts:
+
+- [Official Qubic Smart Contracts](https://github.com/qubic/core/tree/main/src/contracts)
+
+These examples can be viewed and tested in the [Smart Contract IDE](https://qubicdev.com/smart-contract-tester.html).
+
+Some notable examples include:
+- Asset management contracts
+- Staking contracts
+- Multi-signature wallets
+- Trading mechanisms
+
 #### CLI IDE
 For interacting with deployed contracts, you can use the online [CLI IDE](https://qubicdev.com/index.html) which offers:
 - Execute Qubic CLI commands directly from the browser
@@ -301,18 +314,6 @@ Check the [examples directory](https://github.com/qubic/ts-library/tree/main/tes
 - Managing multiple users
 - Handling deposits/withdrawals
 
-### Smart Contract Examples
-For smart contract examples, you can explore the official Qubic smart contracts:
-
-- [Official Qubic Smart Contracts](https://github.com/qubic/core/tree/main/src/contracts)
-
-These examples can be viewed and tested in the [Smart Contract IDE](https://qubicdev.com/smart-contract-tester.html).
-
-Some notable examples include:
-- Asset management contracts
-- Staking contracts
-- Multi-signature wallets
-- Trading mechanisms
 
 ## Project Structure
 ```
