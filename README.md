@@ -114,8 +114,6 @@ When your team is ready to submit or update a smart contract, follow these steps
    - After approval, you'll receive a comment with:
      - The IP address of your dedicated node where your contract is deployed
      - Seeds for accessing:
-       - Mainnet Qubic funds
-       - Testnet Qubic funds (for RPC testnet)
        - A specific seed for your team's smart contract node
      - Any specific instructions for your contract
 
@@ -348,10 +346,10 @@ A: Yes. At this time, Qubic smart contracts must be written in C++.
 **Q: How is the testnet for smart contracts set up?**  
 A: Unlike the main Qubic testnet (accessible via RPC), we don't have a public testnet specifically for smart contracts. Instead, our infrastructure team will compile and deploy each smart contract to its own dedicated node. Every smart contract in the hackathon will have a unique node with its own IP address. You'll receive the IP address of your contract's node to interact with it using CLI commands.
 
-**Q: Will I get seeds for testing?**  
-A: Yes, you'll receive three types of seeds:
-1. Seeds with mainnet Qubic funds
-2. Seeds with testnet Qubic funds (for the RPC testnet)
+**Q: Will I get seeds/faucet for testing?**  
+A: Yes, you'll receive three types of seeds/faucet:
+1. Faucet with mainnet Qubic funds
+2. Faucet with testnet Qubic funds (for the RPC testnet)
 3. A unique seed for interacting with your team's smart contract node
 
 **Q: How do I verify my smart contract is working?**  
