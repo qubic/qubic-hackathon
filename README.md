@@ -261,12 +261,61 @@ Qubic provides RPC (Remote Procedure Call) endpoints for interacting with the bl
 
 These endpoints can be used with the Qubic TypeScript library or direct API calls to communicate with the Qubic network.
 
-Available RPC services and documentation:
+#### Available RPC Services and documentation:
 - [Qubic Archive Tree](https://qubic.github.io/integration/Partners/qubic-rpc-doc.html?urls.primaryName=Qubic%20RPC%20Archive%20Tree) - For historical data access
 - [Qubic Live Tree](https://qubic.github.io/integration/Partners/qubic-rpc-doc.html?urls.primaryName=Qubic%20RPC%20Live%20Tree) - For real-time data access
 - [Qubic Transfers API](https://qubic.github.io/integration/Partners/qubic-rpc-doc.html?urls.primaryName=Qubic%20Transfers%20API) - For transfer-specific operations
 
+#### Available RPC Services
+The Qubic RPC API offers a variety of endpoints for different use cases, as detailed in the [official documentation](https://docs.qubic.org/api/rpc/) and [Swagger archive](https://qubic.github.io/integration/Partners/qubic-rpc-doc.html?urls.primaryName=Qubic%20RPC%20Archive%20Tree). Key endpoints include:
+
+1. **General Network Information**
+   - `GET /v1/status`: Retrieves the latest RPC server statistics, including:
+     - `timestamp`: Current timestamp (e.g., "1724325433")
+     - `circulatingSupply`: Total QUs in circulation (e.g., "109929085175710")
+     - `activeAddresses`: Number of active addresses (e.g., 477228)
+     - `price`: Current QU price in USD (e.g., 0.000001743)
+     - `marketCap`: Market capitalization in USD (e.g., "191606393")
+   - `GET /v1/tick`: Returns the current tick (block height) of the network.
+
+2. **Transaction Handling**
+   - `POST /v1/broadcast-transaction`: Broadcasts a transaction to the network.
+   - `GET /v1/tick-transactions/{tick}`: Retrieves a list of approved transactions for a given tick.
+   - `GET /v1/transaction/{txId}`: Fetches details of a specific transaction.
+   - `GET /v1/transaction-status/{txId}`: Checks the status of a specific transaction.
+
+3. **Account and Balance Queries**
+   - `GET /v1/balance/{addressId}`: Retrieves the balance for a specified address ID.
+   - `GET /v1/transfers/{identity}/{fromTick}/{toTick}`: Lists transfer transactions for an identity within a tick range.
+
+4. **Advanced Blockchain Data**
+   - `GET /v1/tick-info/{tick}`: Provides tick information, including timestamp, epoch, and included transaction IDs.
+   - `GET /v1/chain-hash/{tick}`: Returns the chain hash for a specific tick.
+   - `GET /v1/quorum-tick/{tick}`: Retrieves quorum tick data for a specific tick.
+   - `GET /v1/store-hash/{tick}`: Gets the store hash for a specific tick.
+
+#### Using RPC Endpoints
+These endpoints can be accessed via HTTP requests (e.g., using `curl`, a TypeScript library, or any HTTP client). Example using `curl`:
+
+```bash
+curl https://rpc.qubic.org/v1/status
+```
+
 You can build applications that interact with Qubic using these RPC endpoints, without the need to run your own node.
+
+For detailed specifications and response formats, refer to the [Qubic RPC Swagger Documentation](https://docs.qubic.org/api/rpc/#swagger-api-documentation).
+
+#### Smart Contract Interaction Limitations
+**Important:** The current RPC endpoints **do not support direct calls to new deployed smart contract functions**. This means you cannot invoke or interact with smart contracts (new or existing) using the RPC API alone. Instead:
+
+- **New Smart Contracts**: For this hackathon, deploying and interacting with newly developed smart contracts requires the Qubic CLI. After your contract is deployed to its dedicated node (via pull request), you'll use CLI commands with the provided node IP to call its functions (e.g., `deposit`, `get_balance`). See the [Qubic CLI Commands Reference](#qubic-cli-commands-reference) for details.
+- **Existing Smart Contracts**: For challenges that don't involve creating a new smart contract, you can leverage the RPC endpoints to interact with the broader Qubic network (e.g., querying balances, transactions, or ticks) and then use CLI commands to call functions of pre-deployed smart contracts on your assigned node.
+
+#### Hackathon Development Guidance
+- **For Challenges Requiring New Smart Contracts**: Focus on writing your C++ smart contract code and submitting it via pull request. Post-deployment, use the CLI with your node's IP to test and interact with it.
+- **For Challenges Using Existing Contracts**: You can use the RPC endpoints (e.g., `/v1/balance`, `/v1/transfers`) to fetch network data and build applications around existing smart contracts. Then, use the CLI to call specific functions of those contracts as needed, referencing their node IP.
+
+For further integration details, explore the [Qubic Integration GitHub](https://qubic.github.io/integration/Partners/qubic-rpc-doc.html).
 
 ### Faucet
 Need test funds for development? You can access the Qubic faucet:
