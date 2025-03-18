@@ -151,7 +151,24 @@ To access your dedicated testnet node for smart contract development:
    - Successful deployment will display RPC endpoint information
    - Failed deployments will show error logs to help you troubleshoot
 
-5. **Shutdown procedure**
+5. **Monitor transaction logs**
+   After successful deployment, you can monitor real-time transaction logs using the qlogging service:
+   ```bash
+   ./qubic/scripts/qlogging 127.0.0.1 31841 1 2 3 4 21180000
+   ```
+   
+   Run this command in a separate terminal tab to see real-time logs of transactions, transfers, and other events happening on your node. The output will look like:
+   ```
+   EventTx #1FromId Told1 2[1] 21183461.153 QU transfer: from WTUBWAEQJHTFIEDXCJHVRXAXYBFCHAPQUPOQMGTJVGXYEBVRYTOVFHLFBCMB to MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWWD 10000QU.
+   Tick 21183462 doesn't generate any log
+   Tick 21183463 doesn't generate any log
+   ...
+   [4] 21183473.153 Burn: MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWLWD burned 100000 QU
+   ```
+   
+   This is invaluable for debugging and understanding how your smart contract interacts with the network.
+
+6. **Shutdown procedure**
    When you're done working, clean up your deployment:
    ```bash
    ./cleanup.sh
@@ -480,6 +497,16 @@ When you fork the Qubic core repository, you'll be working with this structure:
 ```
 
 The key file you'll be modifying is `src/contracts/HM25.h`, which contains the template smart contract for the hackathon. **Remember that after making changes to this file, you must run the cleanup script and then redeploy to see your changes take effect.**
+
+**On the testnet node** that we provide, you'll find the deployment scripts in this location:
+
+```
+/root/qubic/qubic-docker/      # Docker scripts directory on the testnet node
+├── deploy.sh                  # Script to deploy your SC to a node
+└── cleanup.sh                 # Script to clean up your deployment
+```
+
+These are the scripts you'll execute after connecting to the testnet node via SSH. **Remember that after making changes to your smart contract, you must run the cleanup script and then redeploy to see your changes take effect.**
 
 ## FAQs
 
