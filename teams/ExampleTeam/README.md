@@ -1,4 +1,4 @@
-# Simple Test Contract
+# Echo and Burn Contract
 
 ## Team: ExampleTeam
 **Members:**
@@ -7,39 +7,39 @@
 - Alice Johnson (GitHub: @alicej)
 
 ## Description
-This is a simple test contract that demonstrates basic functionality in the Qubic smart contract ecosystem. The contract tracks balances across epochs and provides a deposit function for testing transaction interactions.
+This contract demonstrates basic functionality in the Qubic smart contract ecosystem. It provides functions to echo (return) or burn funds sent to the contract, along with statistics tracking.
 
 ## Features
-- Track contract balance across epochs
-- Get current contract balance
-- Process deposits (for testing purposes)
+- Echo back funds sent to the contract
+- Burn funds sent to the contract (remove them from circulation)
+- Track statistics on contract usage
 
 ## Smart Contract Functions
 
-### `begin_epoch()`
-Called at the beginning of each epoch to update the contract's balance record.
+### `Echo()`
+Returns any Qubic sent with the transaction back to the sender.
+- **Transaction Type:** 1
 - **Requirements:**
-  - Must successfully fetch entity data
+  - None (works with zero value transactions)
 - **Effects:**
-  - Updates previous_balance with the last known balance
-  - Sets current_balance to the latest contract balance
-  - Prints both values for verification
+  - Increments the echo call counter
+  - Returns invocation amount to caller
 
-### `get_balance()`
-Returns the current balance of the contract.
+### `Burn()`
+Burns (permanently removes from circulation) any Qubic sent with the transaction.
+- **Transaction Type:** 2
+- **Requirements:**
+  - None (works with zero value transactions)
+- **Effects:**
+  - Increments the burn call counter
+  - Permanently removes sent Qubic from circulation
+
+### `GetStats()`
+Returns statistics about contract usage.
+- **Function Type:** 1
 - **Returns:**
-  - Current contract balance (uint64_t)
-- **Requirements:**
-  - Must successfully fetch entity data
-
-### `deposit(uint64_t amount)`
-Test function that accepts deposits to the contract.
-- **Parameters:**
-  - `amount`: The amount of Qubic to deposit
-- **Requirements:**
-  - Amount must be greater than zero
-- **Effects:**
-  - Prints confirmation message with deposit amount
+  - Number of echo calls made to the contract
+  - Number of burn calls made to the contract
 
 ## How to Test
 
@@ -50,27 +50,28 @@ To test this contract after deployment, use the following CLI commands:
    ./qubic-cli -nodeip YOUR_NODE_IP -seed YOUR_SEED -getbalance YOUR_IDENTITY
    ```
 
-2. Send a deposit of 1000 Qubic to the contract:
+2. Call the Echo function with 1000 Qubic (will return the 1000 Qubic to you):
    ```bash
-   ./qubic-cli -nodeip YOUR_NODE_IP -seed YOUR_SEED -sendtoaddress CONTRACT_IDENTITY 1000
+   ./qubic-cli -nodeip YOUR_NODE_IP -seed YOUR_SEED -sendcustomtransaction CONTRACT_IDENTITY 1 1000 0 0x
    ```
 
-3. Check contract balance (transaction type 1):
-   ```bash
-   ./qubic-cli -nodeip YOUR_NODE_IP -seed YOUR_SEED -sendcustomtransaction CONTRACT_IDENTITY 1 0 0 0x
-   ```
-
-4. Make a deposit via contract function (transaction type 2):
+3. Call the Burn function with 1000 Qubic (will permanently burn the 1000 Qubic):
    ```bash
    ./qubic-cli -nodeip YOUR_NODE_IP -seed YOUR_SEED -sendcustomtransaction CONTRACT_IDENTITY 2 1000 0 0x
+   ```
+
+4. Get usage statistics (transaction type 1 function call):
+   ```bash
+   ./qubic-cli -nodeip YOUR_NODE_IP -seed YOUR_SEED -sendcustomtransaction CONTRACT_IDENTITY 1 0 0 0x -functionType
    ```
 
 ## Implementation Notes
 
 This contract serves as a basic template and testing ground for Qubic smart contract functionality. It demonstrates:
 
-1. State management across epochs
-2. Dynamic balance checking
-3. Basic transaction handling
+1. State management with counters
+2. Handling of funds sent to the contract
+3. Different transaction types (echo and burn)
+4. Query functions to access contract state
 
-The contract is intentionally simple and serves as a starting point for more complex applications. It shows the fundamental patterns needed for Qubic smart contract development, including proper entity balance fetching and validation. 
+The contract is intentionally simple and serves as a starting point for more complex applications. It shows the fundamental patterns needed for Qubic smart contract development, including proper funds handling and state management. 

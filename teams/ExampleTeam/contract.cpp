@@ -1,42 +1,66 @@
-// This is a test contract for your Qubic smart contract
+using namespace QPI;
 
-using namespace qpi;
+struct HM252
+{
+};
 
-class SimpleContract {
+struct HM25 : public ContractBase
+{
 public:
-    // Stores balance at epoch start
-    struct State {
-        uint64_t previous_balance;
-        uint64_t current_balance;
+    struct Echo_input{};
+    struct Echo_output{};
+
+    struct Burn_input{};
+    struct Burn_output{};
+
+    struct GetStats_input {};
+    struct GetStats_output
+    {
+        uint64 numberOfEchoCalls;
+        uint64 numberOfBurnCalls;
     };
 
-    State state;
+private:
+    uint64 numberOfEchoCalls;
+    uint64 numberOfBurnCalls;
 
-    // Function to update balance at BEGIN_EPOCH
-    PUBLIC void begin_epoch() {
-        ::Entity entity;
-        bit status = qpi.getEntity(SELF, entity);
+    /**
+    Send back the invocation amount
+    */
+    PUBLIC_PROCEDURE(Echo)
+        state.numberOfEchoCalls++;
+        if (qpi.invocationReward() > 0)
+        {
+            qpi.transfer(qpi.invocator(), qpi.invocationReward());
+        }
+    _
 
-        require(status, "Failed to fetch entity data");
+    /**
+    * Burn all invocation amount
+    */
+    PUBLIC_PROCEDURE(Burn)
+        state.numberOfBurnCalls++;
+        if (qpi.invocationReward() > 0)
+        {
+            qpi.burn(qpi.invocationReward());
+        }
+    _
 
-        state.previous_balance = state.current_balance;
-        state.current_balance = entity.incomingAmount - entity.outgoingAmount;
+    PUBLIC_FUNCTION(GetStats)
+        output.numberOfBurnCalls = state.numberOfBurnCalls;
+        output.numberOfEchoCalls = state.numberOfEchoCalls;
+    _
 
-        print("Previous Balance: ", state.previous_balance);
-        print("Current Balance: ", state.current_balance);
-    }
+    REGISTER_USER_FUNCTIONS_AND_PROCEDURES
 
-    // Function to check SC balance dynamically
-    PUBLIC uint64_t get_balance() {
-        ::Entity entity;
-        bit status = qpi.getEntity(SELF, entity);
-        require(status, "Failed to fetch entity balance");
-        return entity.incomingAmount - entity.outgoingAmount;
-    }
+        REGISTER_USER_PROCEDURE(Echo, 1);
+        REGISTER_USER_PROCEDURE(Burn, 2);
 
-    // Function to deposit funds (test case)
-    PUBLIC void deposit(uint64_t amount) {
-        require(amount > 0, "Deposit amount must be positive");
-        print("Received deposit: ", amount);
-    }
-}; 
+        REGISTER_USER_FUNCTION(GetStats, 1);
+    _
+
+    INITIALIZE
+        state.numberOfEchoCalls = 0;
+        state.numberOfBurnCalls = 0;
+    _
+};
