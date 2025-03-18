@@ -297,7 +297,7 @@ Qubic provides RPC (Remote Procedure Call) endpoints for interacting with the bl
 
 - **Mainnet RPC**: https://rpc.qubic.org
 - **Testnet RPC**: https://testnet-rpc.qubic.org
-- **Testnet Node IP**: 66.248.204.226.
+- **Testnet Node IP**: IP:8000 (example: http://66.248.204.226:8000/tick-info)
 
 These endpoints can be used with the Qubic TypeScript library or direct API calls to communicate with the Qubic network.
 
