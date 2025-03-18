@@ -73,8 +73,34 @@ This approach means you can focus on writing your smart contract code without wo
 7. If deployment is successful, you'll see:
    ```
    Deployment completed successfully.
-   RPC is available at: http:/ip:8000/tick-info
+   RPC is available at: http://185.84.224.158:8000/tick-info
    To connect to the testnet via qubic-cli, use:
+   _______________________
+   |                     |
+   | IP: 185.84.224.158  |
+   | Port: 31841         |
+   |_____________________|
+   Example commands:
+   ./qubic-cli -nodeip 185.84.224.158 -nodeport 31841 -getcurrenttick
+   Response:
+   Tick: 21190235
+   Epoch: 152
+   Number Of Aligned Votes: 0
+   Number Of Misaligned Votes: 0
+   Initial tick: 21190000
+   ./qubic-cli -nodeip 185.84.224.158 -nodeport 31841 -getbalance WEVWZOHASCHODGRVRFKZCGUDGHEDWCAZIZXWBUHZEAMNVHKZPOIZKUEHNQSJ
+   Response:
+   Identity: WEVWZOHASCHODGRVRFKZCGUDGHEDWCAZIZXWBUHZEAMNVHKZPOIZKUEHNQSJ
+   Balance: 1000000000
+   Incoming Amount: 1000000000
+   Outgoing Amount: 0
+   Number Of Incoming Transfers: 1
+   Number Of Outgoing Transfers: 0
+   Latest Incoming Transfer Tick: 15502487
+   Latest Outgoing Transfer Tick: 0
+   Tick: 21190235
+   Spectum Digest: c747adefec62c38dd4a64d554f72723daf71aded23ea5782625ff3cf16e49ec2
+   =======================================================================================================================
    ```
 8. If deployment fails, review the logs to identify and fix issues with your smart contract
 9. After successful deployment, test your smart contract using the Qubic CLI
