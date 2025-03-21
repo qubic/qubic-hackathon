@@ -359,7 +359,7 @@ Qubic provides RPC (Remote Procedure Call) endpoints for interacting with the bl
 
 - **Mainnet RPC**: https://rpc.qubic.org
 - **Testnet RPC**: https://testnet-rpc.qubic.org
-- **Testnet Node IP**: (example: http://66.248.204.226/tick-info)
+- **Testnet Node IP**: (example: http://66.248.204.226/v1/tick-info)
 
 These endpoints can be used with the Qubic TypeScript library or direct API calls to communicate with the Qubic network.
 
@@ -465,7 +465,7 @@ kexrupgtmbmwwzlcpqccemtgvolpzqezybmgaedaganynsnjijfyvcn
 You can use these seeds with the Qubic CLI to interact with your deployed smart contracts. For example:
 
 ```bash
-./qubic-cli -nodeip YOUR_NODE_IP -seed fwqatwliqyszxivzgtyyfllymopjimkyoreolgyflsnfpcytkhagqii -somecommand
+./qubic-cli -nodeip YOUR_NODE_IP -nodeport YOUR_NODE_PORT -seed fwqatwliqyszxivzgtyyfllymopjimkyoreolgyflsnfpcytkhagqii -somecommand
 ```
 
 ### TypeScript Library
@@ -741,7 +741,7 @@ A: Yes! The testnet node is pre-configured with multiple pre-funded seeds, each 
 **Q: How do I verify my smart contract is working?**  
 A: After deployment, use the Qubic CLI to send commands to your contract. For example:
 ```bash
-./qubic-cli -nodeip YOUR_NODE_IP -seed YOUR_SEED -somecommand
+./qubic-cli -nodeip YOUR_NODE_IP -nodeport YOUR_NODE_PORT -seed YOUR_SEED -somecommand
 ```
 
 **Q: What is the IPO process for smart contracts in Qubic?**  
