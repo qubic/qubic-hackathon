@@ -13,7 +13,6 @@
   - [Smart Contract Development](#smart-contract-development)
   - [Best Practices](#best-practices-for-qubic-smart-contracts)
   - [Online Development Tools](#online-development-tools)
-  - [Qubic Wallets](#qubic-wallets)
   - [Qubic CLI Commands Reference](#qubic-cli-commands-reference)
 - [Technical Infrastructure](#technical-infrastructure)
   - [RPC Endpoints](#rpc-endpoints)
@@ -101,7 +100,7 @@ This approach means you can focus on writing your smart contract code without wo
    - Connect to the test node via SSH (Visual Studio Code's SSH extension is recommended so you can see and modify files directly)
    - Run the deployment script: 
      ```bash
-     ./deploy.sh https://github.com/{your-username}/core/tree/madrid-2025 5
+     ./deploy.sh https://github.com/{your-username}/core/tree/madrid-2025
      ```
      in the `/root/qubic/qubic-docker` folder
    - The script will start the node, send indices to get the network ticking, and deploy RPC
@@ -109,7 +108,7 @@ This approach means you can focus on writing your smart contract code without wo
 7. If deployment is successful, you'll see:
    ```
    Deployment completed successfully.
-   RPC is available at: http://185.84.224.158:8000/tick-info
+   RPC is available at: http://185.84.224.158/tick-info
    To connect to the testnet via qubic-cli, use:
    _______________________
    |                     |
@@ -178,7 +177,7 @@ To access your dedicated testnet node for smart contract development:
 3. **Deploy your forked repository**
    Run the deployment script with your GitHub repository URL:
    ```bash
-   ./deploy.sh https://github.com/{your-username}/core/tree/madrid-2025 5
+   ./deploy.sh https://github.com/{your-username}/core/tree/madrid-2025
    ```
    
    **Note:** Ensure your repository is public, as private repositories will not work with this script.
@@ -339,22 +338,6 @@ If you prefer to run the CLI code locally, you can do so by following the instru
 These CLI commands are used to call and test the smart contract (SC), and the AI can help create the commands using the online IDE.
 
 
-### Qubic Wallets - Pending
-
-For interacting with the Qubic blockchain, you can use:
-
-#### MetaMask Snap
-You can connect to Qubic through MetaMask using the Qubic Snap:
-- Follow the installation instructions at [Qubic MetaMask Snap](https://metamask.io/snaps/)
-- This allows you to manage your Qubic assets directly through MetaMask
-
-#### Wallet Connect
-Qubic supports WalletConnect protocol for connecting your wallet to dApps:
-- Enable WalletConnect in your Qubic-compatible wallet
-- Use the connection string provided by dApps to establish a secure connection
-
-These wallets can be used to interact with your smart contracts once they're deployed.
-
 ### Qubic CLI Commands Reference
 
 Here are some essential CLI commands you can use need:
@@ -376,7 +359,7 @@ Qubic provides RPC (Remote Procedure Call) endpoints for interacting with the bl
 
 - **Mainnet RPC**: https://rpc.qubic.org
 - **Testnet RPC**: https://testnet-rpc.qubic.org
-- **Testnet Node IP**: IP:8000 (example: http://66.248.204.226:8000/tick-info)
+- **Testnet Node IP**: (example: http://66.248.204.226/tick-info)
 
 These endpoints can be used with the Qubic TypeScript library or direct API calls to communicate with the Qubic network.
 
@@ -425,10 +408,13 @@ You can build applications that interact with Qubic using these RPC endpoints, w
 For detailed specifications and response formats, refer to the [Qubic RPC Swagger Documentation](https://docs.qubic.org/api/rpc/#swagger-api-documentation).
 
 #### Smart Contract Interaction Limitations
-**Important:** The current RPC endpoints **do not support direct calls to new deployed smart contract functions**. This means you cannot invoke or interact with smart contracts (new or existing) using the RPC API alone. Instead:
+**Important:** The RPC endpoints have varying levels of support for smart contract interactions:
 
-- **New Smart Contracts**: For this hackathon, deploying and interacting with newly developed smart contracts requires the Qubic CLI. After your contract is deployed to its dedicated node (via pull request), you'll use CLI commands with the provided node IP to call its functions (e.g., `deposit`, `get_balance`). See the [Qubic CLI Commands Reference](#qubic-cli-commands-reference) for details.
-- **Existing Smart Contracts**: For challenges that don't involve creating a new smart contract, you can leverage the RPC endpoints to interact with the broader Qubic network (e.g., querying balances, transactions, or ticks) and then use CLI commands to call functions of pre-deployed smart contracts on your assigned node.
+- **Pre-deployed HM25 Template**: The example frontend application demonstrates how to interact with the pre-deployed HM25 template contract using RPC endpoints like `/v1/querySmartContract` for reading data and `/v1/broadcast-transaction` for executing procedures.
+
+- **Your Custom Contracts**: When you modify and deploy your own version of the smart contract, initially you may need to use the Qubic CLI to test your custom functions. After verifying your contract is working correctly, you can integrate it with the frontend following the patterns shown in the example application.
+
+- **RPC vs CLI Usage**: For most teams, the example frontend application provides all necessary components to interact with your smart contract through RPC. The CLI is most useful for debugging and initial testing.
 
 For further integration details, explore the [Qubic Integration GitHub](https://qubic.github.io/integration/Partners/qubic-rpc-doc.html).
 
@@ -541,9 +527,13 @@ We've built a frontend application that demonstrates how to interact with the Qu
 ### Connecting to a Node
 By default, the app connects to a testnet node at `http://91.210.226.146`. 
 
-**Important Note**: After running the deploy.sh script, the RPC endpoint format has changed. Previously it was `http://<HOST_IP>:8000`, but now it's simply `http://<HOST_IP>` without the port.
+**Important Notes**: 
+1. The frontend app connects to a shared testnet node by default
+2. Each team will be assigned their own dedicated node (accessible via SSH) where they'll deploy their custom contract
+3. After running the deploy.sh script on your assigned node, you'll need to connect the frontend to your node
+4. The RPC endpoint format has changed: Previously it was `http://<HOST_IP>:8000`, but now it's simply `http://<HOST_IP>` without the port
 
-You can connect to a different node:
+You can connect to your dedicated node:
 1. Open the app in your browser
 2. Click on the ConnectLink at the top right
 3. Select "Connect to Server"
