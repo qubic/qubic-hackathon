@@ -2,6 +2,7 @@
 
 ## Table of Contents
 - [Overview](#overview)
+- [Quick Start](#quick-start)
 - [What is Qubic?](#what-is-qubic)
 - [Hackathon Process](#hackathon-process)
   - [Development Process Overview](#development-process-overview)
@@ -31,6 +32,36 @@
 
 ## Overview
 Welcome to the Qubic Hackathon Madrid repository! This hackathon will take place on March 22-23, 2024, bringing together developers to build innovative smart contracts on the Qubic blockchain. This repository serves as the central hub for participants to submit their smart contracts, access resources, and interact with the infrastructure team.
+
+## Quick Start
+
+1. **Join the Qubic Discord Community**: [discord.gg/qubic](https://discord.gg/qubic)
+
+2. **Get Access to a Test Node**:
+   - Reach out in the `#dev` channel to get SSH access to a dedicated testnet node
+   - Deploy the HM25 template smart contract using the provided scripts
+
+3. **Customize Your Smart Contract**:
+   - Fork the [Qubic Core repository](https://github.com/qubic/core) and switch to the `madrid-2025` branch
+   - Modify the `src/contracts/HM25.h` template file with your own business logic
+   - Keep the existing function structure but add your own state variables and procedures
+   - Use the provided deployment script to deploy your modified contract
+
+4. **Explore the Example dApp**:
+   - Check out [https://github.com/icyblob/hm25-frontend](https://github.com/icyblob/hm25-frontend) - a complete example dApp
+   - Features full wallet integrations (MetaMask Snap, WalletConnect, seed phrase, bolt file)
+   - Demonstrates real-world smart contract interactions with the HM25 template
+   - Use this as a reference implementation for your own Qubic dApps
+
+5. **Connect to Your Node**:
+   - The app connects to a testnet node by default
+   - To connect to your own node, use the ConnectLink feature in the top right
+   - Use format: `http://<your-node-ip>` (no port needed)
+
+6. **Interact with Your Smart Contract**:
+   - Use the frontend to call your SC functions
+   - View contract statistics
+   - Use provided test seeds to sign transactions
 
 ## What is Qubic?
 Qubic is a blockchain platform that enables the creation and execution of smart contracts. Qubic smart contracts are self-executing programs that run within the Qubic ecosystem, automating logic, managing balances, and interacting with the blockchain to process transactions securely and efficiently.
