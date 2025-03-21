@@ -48,7 +48,7 @@ Welcome to the Qubic Hackathon Madrid repository! This hackathon will take place
 
 4. **Explore the Example dApp**:
    - Check out [https://github.com/icyblob/hm25-frontend](https://github.com/icyblob/hm25-frontend) - a complete example dApp
-   - Features full wallet integrations (MetaMask Snap, WalletConnect, seed phrase, bolt file)
+   - Features full wallet integrations (MetaMask Snap, WalletConnect, seed phrase, Vault file)
    - Demonstrates real-world smart contract interactions with the HM25 template
    - Use this as a reference implementation for your own Qubic dApps
 
@@ -518,7 +518,7 @@ We've built a frontend application that demonstrates how to interact with the Qu
   - MetaMask Snap integration
   - WalletConnect support
   - Seed phrase login
-  - Bolt file authentication
+  - Vault file authentication
 - Interact with the HM25 template smart contract
   - Call Echo function (returns funds to the sender)
   - Call Burn function (burns funds permanently)
