@@ -20,6 +20,11 @@
   - [Available Testnet Seeds](#available-testnet-seeds)
   - [TypeScript Library](#typescript-library)
   - [Smart Contract Examples](#smart-contract-examples)
+- [Frontend Application](#frontend-application)
+  - [Frontend Overview](#frontend-overview)
+  - [Frontend Features](#frontend-features)
+  - [Connecting to a Node](#connecting-to-a-node)
+  - [Smart Contract Interaction Examples](#smart-contract-interaction-examples)
 - [Project Structure](#project-structure)
 - [FAQs](#faqs)
 - [Contact](#contact)
@@ -482,6 +487,184 @@ Check the [examples directory](https://github.com/qubic/ts-library/tree/main/tes
 - Fetching balances
 - Managing multiple users
 - Handling deposits/withdrawals
+
+## Frontend Application
+
+### Frontend Overview
+We've built a frontend application that demonstrates how to interact with the Qubic blockchain and specifically with the HM25 template smart contract deployed on the testnet. This application serves as an example of how to build user interfaces for Qubic-based dApps.
+
+**Source Code:** [https://github.com/icyblob/hm25-frontend](https://github.com/icyblob/hm25-frontend) - Clone this repository to run the app locally, detailed setup instructions are provided in the repository README.
+
+### Frontend Features
+- Connect to a Qubic node through its RPC endpoint
+- Integrated wallet support:
+  - MetaMask Snap integration
+  - WalletConnect support
+  - Seed phrase login
+  - Bolt file authentication
+- Interact with the HM25 template smart contract
+  - Call Echo function (returns funds to the sender)
+  - Call Burn function (burns funds permanently)
+  - View contract statistics
+
+### Connecting to a Node
+By default, the app connects to a testnet node at `http://91.210.226.146`. 
+
+**Important Note**: After running the deploy.sh script, the RPC endpoint format has changed. Previously it was `http://<HOST_IP>:8000`, but now it's simply `http://<HOST_IP>` without the port.
+
+You can connect to a different node:
+1. Open the app in your browser
+2. Click on the ConnectLink at the top right
+3. Select "Connect to Server"
+4. Enter your node URL (e.g., `http://your-node-ip`) without any port
+5. Refresh the page
+
+**How Transactions Work**:
+The wallet is only used for signing transactions. After a transaction is signed, it will be broadcast to the network that the dapp is connecting to, as determined by the HTTP endpoint in the configuration.
+
+The app interacts with the [HM25 template smart contract](https://github.com/qubic/core/blob/madrid-2025/src/contracts/HM25.h) that provides Echo, Burn, and GetStats functionality.
+
+### Smart Contract Interaction Examples
+
+The frontend interacts with the HM25 smart contract through several key functions defined in `src/components/api/HM25Api.jsx`. Here's how it works:
+
+#### 1. Contract Constants
+
+First, we define constants for interacting with the contract:
+
+```javascript
+export const HM25_CONTRACT_INDEX = 12  // The index of the HM25 contract on the testnet
+
+// Function and procedure types
+export const PROC_ECHO = 1     // Echo procedure type ID
+export const PROC_BURN = 2     // Burn procedure type ID
+export const FUNC_GET_STATS = 1  // GetStats function type ID
+```
+
+#### 2. Reading Contract State (GetStats)
+
+To read data from the smart contract (like statistics), we use the `/v1/querySmartContract` endpoint:
+
+```javascript
+export async function fetchHM25Stats(httpEndpoint) {
+    // Create the query data for the GetStats function (type 1)
+    const queryData = makeJsonData(HM25_CONTRACT_INDEX, FUNC_GET_STATS, 0, '')
+    
+    try {
+        // Make HTTP POST request to the node's RPC endpoint
+        const response = await fetch(`${httpEndpoint}/v1/querySmartContract`, {
+            method: 'POST',
+            headers: HEADERS,
+            body: JSON.stringify(queryData),
+        })
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        
+        const json = await response.json()
+        // Decode the response data from base64
+        const raw = base64.decode(json.responseData)
+        const buf = Buffer.from(raw, 'binary')
+        
+        // Parse the 16-byte response (2 uint64 values)
+        return {
+            numberOfEchoCalls: buf.readBigUInt64LE(0),  // First 8 bytes
+            numberOfBurnCalls: buf.readBigUInt64LE(8),  // Second 8 bytes
+        }
+    } catch (error) {
+        console.error('Error fetching HM25 stats:', error)
+        return {
+            numberOfEchoCalls: 0n,
+            numberOfBurnCalls: 0n,
+        }
+    }
+}
+```
+
+#### 3. Creating Transaction for Echo Procedure
+
+To call the Echo procedure (which returns funds to the sender), we build a transaction:
+
+```javascript
+export async function buildEchoTx(qHelper, sourcePublicKey, tick, amount) {
+    const finalTick = tick + TICK_OFFSET  // Add offset to current tick
+    const INPUT_SIZE = 0  // No input data for Echo
+    const TX_SIZE = qHelper.TRANSACTION_SIZE + INPUT_SIZE
+    const tx = new Uint8Array(TX_SIZE).fill(0)
+    const dv = new DataView(tx.buffer)
+
+    // Build the transaction
+    let offset = 0
+    // Source address
+    tx.set(sourcePublicKey, offset)
+    offset += qHelper.PUBLIC_KEY_LENGTH
+    // Target contract (HM25)
+    tx[offset] = HM25_CONTRACT_INDEX
+    offset += qHelper.PUBLIC_KEY_LENGTH
+    // Amount to send
+    dv.setBigInt64(offset, BigInt(amount), true)
+    offset += 8
+    // Tick for the transaction
+    dv.setUint32(offset, finalTick, true)
+    offset += 4
+    // Procedure type (Echo = 1)
+    dv.setUint16(offset, PROC_ECHO, true)
+    offset += 2
+    // Input size
+    dv.setUint16(offset, INPUT_SIZE, true)
+
+    return tx
+}
+```
+
+#### 4. Creating Transaction for Burn Procedure
+
+Similarly, to call the Burn procedure (which permanently burns funds):
+
+```javascript
+export async function buildBurnTx(qHelper, sourcePublicKey, tick, amount) {
+    const finalTick = tick + TICK_OFFSET
+    const INPUT_SIZE = 0
+    const TX_SIZE = qHelper.TRANSACTION_SIZE + INPUT_SIZE
+    const tx = new Uint8Array(TX_SIZE).fill(0)
+    const dv = new DataView(tx.buffer)
+
+    // Build the transaction (similar structure to Echo but different procedure type)
+    let offset = 0
+    tx.set(sourcePublicKey, offset)
+    offset += qHelper.PUBLIC_KEY_LENGTH
+    tx[offset] = HM25_CONTRACT_INDEX
+    offset += qHelper.PUBLIC_KEY_LENGTH
+    dv.setBigInt64(offset, BigInt(amount), true)
+    offset += 8
+    dv.setUint32(offset, finalTick, true)
+    offset += 4
+    // Use PROC_BURN (2) instead of PROC_ECHO
+    dv.setUint16(offset, PROC_BURN, true)
+    offset += 2
+    dv.setUint16(offset, INPUT_SIZE, true)
+
+    return tx
+}
+```
+
+#### 5. Complete Flow for Executing a Transaction
+
+When a user interacts with the HM25 contract through the UI:
+
+1. The frontend fetches the current tick from the node
+2. It builds a transaction using `buildEchoTx` or `buildBurnTx`
+3. The transaction is signed by the wallet
+4. The signed transaction is broadcast to the node via the `/v1/broadcast-transaction` endpoint
+5. The app shows the user the transaction status
+
+This approach separates:
+- The wallet (responsible only for signing transactions)
+- The node connection (determined by the HTTP endpoint setting)
+- The business logic (in the smart contract)
+
+The frontend simply orchestrates these components to provide a seamless user experience.
 
 ## Project Structure
 When you fork the Qubic core repository, you'll be working with this structure:
