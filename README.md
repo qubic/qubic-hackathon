@@ -37,7 +37,7 @@ Welcome to the Qubic Hackathon Madrid repository! This hackathon will take place
 1. **Join the Qubic Discord Community**: [discord.gg/qubic](https://discord.gg/qubic)
 
 2. **Get Access to a Test Node**:
-   - Reach out in the `#dev` channel to get SSH access to a dedicated testnet node
+   - Please reach out in the `#dev` channel with your team name and number; we’ll set up a channel for your dedicated testnet node access. No private DMs, please.
    - Deploy the HM25 template smart contract using the provided scripts
 
 3. **Customize Your Smart Contract**:
