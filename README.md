@@ -366,7 +366,6 @@ Qubic provides RPC (Remote Procedure Call) endpoints for interacting with the bl
 These endpoints can be used with the Qubic TypeScript library or direct API calls to communicate with the Qubic network.
 
 #### Available RPC Services and documentation:
-- [Qubic Archive Tree](https://qubic.github.io/integration/Partners/qubic-rpc-doc.html?urls.primaryName=Qubic%20RPC%20Archive%20Tree) - For historical data access
 - [Qubic Live Tree](https://qubic.github.io/integration/Partners/qubic-rpc-doc.html?urls.primaryName=Qubic%20RPC%20Live%20Tree) - For real-time data access
 
 
