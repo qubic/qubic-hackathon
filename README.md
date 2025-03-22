@@ -96,8 +96,10 @@ This approach means you can focus on writing your smart contract code without wo
    - Note: On Qubic mainnet, each SC needs to be IPOed and approved by computors, but for this hackathon, we've simplified the process with a pre-approved template contract
 5. Advanced developers can also add functions in files under `contract_core` and `contracts` folders, but this is not recommended for beginners
 6. To test your smart contract on a dedicated test node:
-   - Contact the team on the `#dev` channel on Discord and we will provide access
+
+   -  Please reach out to the Q&A channel in telegram with your team name and team number; we’ll set up a channel for your dedicated testnet node access. 
    - Connect to the test node via SSH (Visual Studio Code's SSH extension is recommended so you can see and modify files directly)
+   -
    - Run the deployment script: 
      ```bash
      ./deploy.sh https://github.com/{your-username}/core/tree/madrid-2025
