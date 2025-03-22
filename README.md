@@ -368,7 +368,7 @@ These endpoints can be used with the Qubic TypeScript library or direct API call
 #### Available RPC Services and documentation:
 - [Qubic Archive Tree](https://qubic.github.io/integration/Partners/qubic-rpc-doc.html?urls.primaryName=Qubic%20RPC%20Archive%20Tree) - For historical data access
 - [Qubic Live Tree](https://qubic.github.io/integration/Partners/qubic-rpc-doc.html?urls.primaryName=Qubic%20RPC%20Live%20Tree) - For real-time data access
-- [Qubic Transfers API](https://qubic.github.io/integration/Partners/qubic-rpc-doc.html?urls.primaryName=Qubic%20Transfers%20API) - For transfer-specific operations
+
 
 #### Available RPC Services
 The Qubic RPC API offers a variety of endpoints for different use cases, as detailed in the [official documentation](https://docs.qubic.org/api/rpc/) and [Swagger archive](https://qubic.github.io/integration/Partners/qubic-rpc-doc.html?urls.primaryName=Qubic%20RPC%20Archive%20Tree). Key endpoints include:
