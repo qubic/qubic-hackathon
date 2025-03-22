@@ -367,6 +367,7 @@ These endpoints can be used with the Qubic TypeScript library or direct API call
 
 #### Available RPC Services and documentation:
 - [Qubic Live Tree](https://qubic.github.io/integration/Partners/qubic-rpc-doc.html?urls.primaryName=Qubic%20RPC%20Live%20Tree) - For real-time data access
+- [Qubic Archive Tree](https://qubic.github.io/integration/Partners/qubic-rpc-doc.html?urls.primaryName=Qubic%20RPC%20Archive%20Tree) - For historical data access (Not working on testnet)
 
 
 #### Available RPC Services
