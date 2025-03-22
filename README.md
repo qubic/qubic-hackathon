@@ -389,7 +389,7 @@ The Qubic RPC API offers a variety of endpoints for different use cases, as deta
    - `GET /v1/transaction-status/{txId}`: Checks the status of a specific transaction.
 
 3. **Account and Balance Queries**
-   - `GET /v1/balance/{addressId}`: Retrieves the balance for a specified address ID.
+   - `GET /v1/balances/{addressId}`: Retrieves the balance for a specified address ID.
    - `GET /v1/transfers/{identity}/{fromTick}/{toTick}`: Lists transfer transactions for an identity within a tick range.
 
 4. **Advanced Blockchain Data**
