@@ -1,4 +1,4 @@
-# Qubic Hackathon Madrid - March 22-23, 2024
+# Qubic Hackathon Documentation
 
 ## Table of Contents
 - [Overview](#overview)
@@ -25,19 +25,22 @@
   - [Frontend Features](#frontend-features)
   - [Connecting to a Node](#connecting-to-a-node)
   - [Smart Contract Interaction Examples](#smart-contract-interaction-examples)
+- [Testing Smart Contracts](#testing-smart-contracts)
+  - [CLI Testing](#cli-testing)
+  - [RPC Testing](#rpc-testing)
+  - [Event Decoding](#event-decoding)
 - [Project Structure](#project-structure)
 - [FAQs](#faqs)
 - [Contact](#contact)
 
 ## Overview
-Welcome to the Qubic Hackathon Madrid repository! This hackathon will take place on March 22-23, 2024, bringing together developers to build innovative smart contracts on the Qubic blockchain. This repository serves as the central hub for participants to submit their smart contracts, access resources, and interact with the infrastructure team.
-
+Welcome to the Qubic Hackathon repository! This repository serves as the central hub for participants to submit their smart contracts, access resources, and interact with the infrastructure team during Qubic hackathons. Whether you're participating in your first Qubic hackathon or you're a returning developer, this documentation will guide you through the entire process of building innovative smart contracts on the Qubic.
 ## Quick Start
 
 1. **Join the Qubic Discord Community**: [discord.gg/qubic](https://discord.gg/qubic)
 
 2. **Get Access to a Test Node**:
-   - Please reach out to the Q&A channel in telegram with your team name and team number; we’ll set up a channel for your dedicated testnet node access. No private DMs, please.
+   - The process for accessing testnet nodes is being updated for future hackathons. Please check with the hackathon organizers for the current access procedure.
    - Deploy the HM25 template smart contract using the provided scripts
 
 3. **Customize Your Smart Contract**:
@@ -97,7 +100,7 @@ This approach means you can focus on writing your smart contract code without wo
 5. Advanced developers can also add functions in files under `contract_core` and `contracts` folders, but this is not recommended for beginners
 6. To test your smart contract on a dedicated test node:
 
-   -  Please reach out to the Q&A channel in telegram with your team name and team number; we’ll set up a channel for your dedicated testnet node access. 
+   - Contact the hackathon organizers to get access to your dedicated testnet node (the specific process may vary by hackathon)
    - Connect to the test node via SSH (Visual Studio Code's SSH extension is recommended so you can see and modify files directly)
    -
    - Run the deployment script: 
@@ -154,11 +157,11 @@ This approach means you can focus on writing your smart contract code without wo
 To access your dedicated testnet node for smart contract development:
 
 1. **Request access credentials**
-   - Please reach out to the Q&A channel in telegram with your team name and team number; we’ll set up a channel for your dedicated testnet node access. No private DMs, please.
-   - We will provide you with:
-     - IP address: `66.248.204.226`
-     - Username: `root`
-     - Password: Will be provided securely via Discord
+   - Contact the hackathon organizers to get access to your dedicated testnet node (the specific process may vary by hackathon)
+   - You will be provided with:
+     - IP address: (specific to your assigned node)
+     - Username: typically `root`
+     - Password: Will be provided securely by the organizers
 
 2. **Connect via SSH**
    We recommend using Visual Studio Code with the SSH extension for the best experience:
@@ -169,7 +172,7 @@ To access your dedicated testnet node for smart contract development:
    
    c. Select "Connect to Host..." and add a new SSH host:
    ```
-   ssh root@66.248.204.226
+   ssh root@YOUR_NODE_IP
    ```
    
    d. Enter the password when prompted
@@ -329,20 +332,16 @@ Some notable examples include:
 - Multi-signature wallets
 - Trading mechanisms
 
-#### CLI IDE
-For interacting with deployed contracts, you can use the online [CLI IDE](https://qubicdev.com/) which offers:
-- Execute Qubic CLI commands directly from the browser
-- Save and manage code files for your projects
-- AI assistance for generating optimal commands and troubleshooting
-
-If you prefer to run the CLI code locally, you can do so by following the instructions on the [Qubic CLI GitHub](https://github.com/qubic/qubic-cli). For Mac OS Silicon chips, use the branch [2024-12-18-port-aarch64](https://github.com/qubic/qubic-cli/tree/2024-12-18-port-aarch64).
-
-These CLI commands are used to call and test the smart contract (SC), and the AI can help create the commands using the online IDE.
+For interacting with deployed contracts, use the local Qubic CLI by following the instructions on the [Qubic CLI GitHub](https://github.com/qubic/qubic-cli). The CLI works with all systems and these commands are used to call and test smart contracts.
 
 
 ### Qubic CLI Commands Reference
 
-Here are some essential CLI commands you can use need:
+#### Installation and Setup
+Install the Qubic CLI from the [Qubic CLI repository](https://github.com/qubic/qubic-cli). The CLI works with all systems.
+
+#### Essential CLI Commands
+Here are some essential CLI commands you can use:
 
 - `./qubic-cli -help`: Prints the help message with all available commands
 - `./qubic-cli -nodeip <IPv4_ADDRESS>`: Specifies the IP address of the target node
@@ -360,10 +359,18 @@ For a complete list of commands, visit the [Qubic CLI Readme](https://github.com
 Qubic provides RPC (Remote Procedure Call) endpoints for interacting with the blockchain:
 
 - **Mainnet RPC**: https://rpc.qubic.org
-- **Testnet RPC**: https://testnet-rpc.qubic.org
+- **Public Testnet RPC**: https://testnet-rpc.qubicdev.com (Anyone can use this for testing)
 - **Testnet Node IP**: (example: http://66.248.204.226/v1/tick-info)
 
 These endpoints can be used with the Qubic TypeScript library or direct API calls to communicate with the Qubic network.
+
+#### Quick Testing with Public Testnet
+If you want to quickly test general Qubic interactions without setting up your own node, you can use the public testnet RPC at [https://testnet-rpc.qubicdev.com](https://testnet-rpc.qubicdev.com). This is perfect for:
+- Learning Qubic RPC interactions
+- General blockchain interaction testing
+- Understanding Qubic network functionality
+
+**Note:** This public testnet is for general Qubic interaction only. To test your own custom smart contracts, you need your own dedicated test node.
 
 #### Available RPC Services and documentation:
 - [Qubic Live Tree](https://qubic.github.io/integration/Partners/qubic-rpc-doc.html?urls.primaryName=Qubic%20RPC%20Live%20Tree) - For real-time data access
@@ -421,15 +428,11 @@ For detailed specifications and response formats, refer to the [Qubic RPC Swagge
 For further integration details, explore the [Qubic Integration GitHub](https://qubic.github.io/integration/Partners/qubic-rpc-doc.html).
 
 ### Faucet
-Need test funds for development? You can access the Qubic faucet:
+Need test funds for general Qubic interaction and development? Get testnet Qubics from the online faucet:
 
-1. Join the [Qubic Discord](https://discord.gg/qubic)
-2. Navigate to the `#bot-commands` channel
-3. Use the faucet command to receive:
-   - 1000 Qubics on mainnet
-   - Test Qubics for the testnet RPC
+Visit [https://qforge.qubicdev.com/](https://qforge.qubicdev.com/) to get testnet funds instantly. These funds work with the public testnet RPC at [https://testnet-rpc.qubicdev.com](https://testnet-rpc.qubicdev.com) for general Qubic interactions and testing.
 
-This will provide you with the necessary funds to test your smart contracts during development.
+**Note:** This is for general Qubic interaction, not for testing your own smart contracts. To test your own smart contracts, you need access to your own dedicated test node (see the hackathon setup process above).
 
 ### Available Testnet Seeds
 The testnet node comes with pre-funded seeds that you can use for testing. Each seed contains 1 billion Qubic tokens. Here's the list of available seeds:
@@ -689,6 +692,98 @@ This approach separates:
 
 The frontend simply orchestrates these components to provide a seamless user experience.
 
+## Testing Smart Contracts
+
+There are two primary ways to test your smart contracts on Qubic: using the CLI or using RPC endpoints. Each method has its own advantages and use cases.
+
+### CLI Testing
+
+The Qubic CLI provides a direct way to interact with your deployed smart contracts. This is often the easiest method for initial testing and debugging. For complete CLI command reference, see the [Qubic CLI Commands Reference](#qubic-cli-commands-reference) section above.
+
+#### Advantages of CLI Testing
+- Direct communication with the node
+- Easier for debugging initial contract functionality
+- No need to handle encoding/decoding manually
+- Comprehensive error messages
+
+### RPC Testing
+
+RPC (Remote Procedure Call) testing involves making HTTP requests to your node's RPC endpoint. This method is more suitable for frontend applications and automated testing.
+
+#### Key RPC Endpoints for Smart Contract Testing
+- `POST /v1/querySmartContract` - For reading contract state (functions)
+- `POST /v1/broadcast-transaction` - For executing contract procedures
+- `GET /v1/tick-info` - For getting current tick information
+
+#### Base64 Encoding/Decoding
+
+When using RPC endpoints, you need to handle Base64 encoding and decoding:
+
+**For Input Data**: Encode your input parameters in Base64 before sending to the contract
+**For Output Data**: Decode the Base64 response from the contract to extract readable data
+
+Example of decoding response data:
+```javascript
+const response = await fetch(`${httpEndpoint}/v1/querySmartContract`, {
+    method: 'POST',
+    headers: HEADERS,
+    body: JSON.stringify(queryData),
+})
+
+const json = await response.json()
+// Decode the response data from base64
+const raw = base64.decode(json.responseData)
+const buf = Buffer.from(raw, 'binary')
+
+// Parse the decoded data according to your contract's output structure
+const result = {
+    field1: buf.readBigUInt64LE(0),  // First 8 bytes
+    field2: buf.readBigUInt64LE(8),  // Second 8 bytes
+}
+```
+
+#### Advantages of RPC Testing
+- Better for frontend integration
+- Allows for automated testing scripts
+- Can be used from any programming language
+- More suitable for production applications
+
+### Event Decoding
+
+Qubic provides an endpoint to decode events that occur during smart contract execution. This is useful for understanding what happened during transaction processing.
+
+#### Event Decoding Endpoint
+```
+POST https://api.qubic.org/v1/events/decodeEvent
+```
+
+#### Example Usage
+```json
+{  
+  "eventType": 0,
+  "eventData": "502YpKmHdvcsWG8wdVSXWdMm7aX3DmaRnqb7fwg+2jHt81Dpwpkpl7PJ6+W0KQxRwUGu55o1nGrHBs59ZdzuPOwTAAAAAAAAp1lmAQEAMwAweDA5MDM3OGE5YzgwYzVFMUNlZDg1ZTU2QjIxMjhjMWU1MTRFNzUzNTfsEwAAAAAAAAFEoI/b27Ev7KpF7C8/x+VXJvprP801z9VmZ/C4jCDTybVi2ldtkRJBIZfQbpKq0hWl/ynKZGkfwJsDf1y9XhIA"
+}
+```
+
+#### Response
+```json
+{
+    "decodedEvent": {
+        "quTransferEvent": {
+            "sourceId": "NBMITJYAKMHWEHQWUULCUCRBXQPCFNFLNAHRRONUFEEHDNZDMQZUSQLBGBIN",
+            "destId": "PXABYVDPJRRDKELEYSHZWJCBEFJCNERNKKUWXHANCDPQEFGDIUGUGAUBBCYK",
+            "amount": "5100"
+        }
+    }
+}
+```
+
+This endpoint is particularly useful for:
+- Debugging transaction failures
+- Understanding money flows in your smart contract
+- Tracking specific events for analytics
+- Verifying that your contract is behaving as expected
+
 ## Project Structure
 When you fork the Qubic core repository, you'll be working with this structure:
 
@@ -754,4 +849,4 @@ If you have any questions or need assistance during the hackathon, please contac
 
 ---
 
-*This repository and documentation were created for the Qubic Hackathon Madrid, March 22-23, 2024.*
+*This repository and documentation serve as the general resource for Qubic hackathons worldwide.*
