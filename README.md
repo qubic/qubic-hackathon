@@ -317,6 +317,28 @@ This template demonstrates:
 
 ### Online Development Tools
 
+### Integration Tutorial Videos
+
+The Qubic integration team that runs the RPC has created a comprehensive video series that walks through all the essential integration operations step by step. These videos provide official, hands-on guidance for implementing Qubic integrations using Go.
+
+**YouTube Playlist:** [Qubic Integration Tutorial Series](https://www.youtube.com/playlist?list=PLskYfgFVxxRzj2CD2HPKk2lYjcoJGrDrr)
+
+**Code Examples:** All video tutorials have corresponding code examples in the [`qubic-integration-examples`](./qubic-integration-examples/) directory.
+
+The series covers:
+1. **Get Balance Part 1 & 2** - Learn how to retrieve account balances from the Qubic network
+   - [📁 Code Example](./qubic-integration-examples/01-get-balance/)
+2. **Check Transactions** - Understand how to query and verify transaction information
+   - [📁 Code Example](./qubic-integration-examples/02-check-transactions/)
+3. **Query Smart Contract** - Discover how to interact with and query smart contracts
+   - [📁 Code Example](./qubic-integration-examples/03-query-smart-contract/)
+4. **Send Transaction** - Master the process of creating and broadcasting transactions
+   - [📁 Code Example](./qubic-integration-examples/04-send-transaction/)
+
+Each video corresponds to the practical examples found in the `qubic-integration-examples` directory, which contains complete Go code implementations for each integration scenario. These tutorials are invaluable for developers who want to understand the complete flow of integrating with the Qubic network, straight from the team that maintains the RPC infrastructure.
+
+**Note:** While these examples use Go, the concepts and API interactions demonstrated are applicable to any programming language when building Qubic integrations.
+
 ### Smart Contract Examples
 For smart contract examples, you can explore the official Qubic smart contracts:
 
