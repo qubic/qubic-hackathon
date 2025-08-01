@@ -41,18 +41,18 @@ Welcome to the Qubic Hackathon repository! This repository serves as the central
 
 2. **Get Access to a Test Node**:
    - The process for accessing testnet nodes is being updated for future hackathons. Please check with the hackathon organizers for the current access procedure.
-   - Deploy the HM25 template smart contract using the provided scripts
+   - Deploy the Random template smart contract using the provided scripts
 
 3. **Customize Your Smart Contract**:
-   - Fork the [Qubic Core repository](https://github.com/qubic/core) and switch to the `madrid-2025` branch
-   - Modify the `src/contracts/HM25.h` template file with your own business logic
+   - Fork the [Qubic Core repository](https://github.com/qubic/core) and switch to the `testnets/release-253` branch
+   - Modify the `src/contracts/random.h` template file with your own business logic
    - Keep the existing function structure but add your own state variables and procedures
    - Use the provided deployment script to deploy your modified contract
 
 4. **Explore the Example dApp**:
    - Check out [https://github.com/icyblob/hm25-frontend](https://github.com/icyblob/hm25-frontend) - a complete example dApp
    - Features full wallet integrations (MetaMask Snap, WalletConnect, seed phrase, Vault file)
-   - Demonstrates real-world smart contract interactions with the HM25 template
+   - Demonstrates real-world smart contract interactions with the Random template
    - Use this as a reference implementation for your own Qubic dApps
 
 5. **Connect to Your Node**:
@@ -92,8 +92,8 @@ This approach means you can focus on writing your smart contract code without wo
 ### Smart Contract Development & Deployment Process
 1. Teams develop their smart contracts using C++
 2. Fork the Qubic core repository from https://github.com/qubic/core
-3. Switch to the `madrid-2025` branch which contains the optimized test node version
-4. Develop your smart contract by editing the `HM25.h` template file
+3. Switch to the `testnets/release-253` branch which contains the optimized test node version
+4. Develop your smart contract by editing the `random.h` template file
    - This is the template smart contract we've prepared for the hackathon
    - You can modify this file with your SC code
    - Note: On Qubic mainnet, each SC needs to be IPOed and approved by computors, but for this hackathon, we've simplified the process with a pre-approved template contract
@@ -105,7 +105,7 @@ This approach means you can focus on writing your smart contract code without wo
    -
    - Run the deployment script: 
      ```bash
-     ./deploy.sh https://github.com/{your-username}/core/tree/madrid-2025
+     ./deploy.sh https://github.com/{your-username}/core/tree/testnets/release-253
      ```
      in the `/root/qubic/qubic-docker` folder
    - The script will start the node, send indices to get the network ticking, and deploy RPC
@@ -182,7 +182,7 @@ To access your dedicated testnet node for smart contract development:
 3. **Deploy your forked repository**
    Run the deployment script with your GitHub repository URL:
    ```bash
-   ./deploy.sh https://github.com/{your-username}/core/tree/madrid-2025
+   ./deploy.sh https://github.com/{your-username}/core/tree/testnets/release-253
    ```
    
    **Note:** Ensure your repository is public, as private repositories will not work with this script.
@@ -222,11 +222,11 @@ Qubic smart contracts are written in C++ with specific structures and patterns. 
 ```h
 using namespace QPI;
 
-struct HM252
+struct hm25
 {
 };
 
-struct HM25 : public ContractBase
+struct Random : public ContractBase
 {
 public:
     struct Echo_input{};
@@ -834,16 +834,16 @@ These are the scripts you'll execute after connecting to the testnet node via SS
 ## FAQs
 
 **Q: Do I need to set up my own node?**  
-A: No. We provide a test node that you can access via SSH. You'll be modifying the HM25.h template file on this node and deploying it using the provided scripts.
+A: No. We provide a test node that you can access via SSH. You'll be modifying the random.h template file on this node and deploying it using the provided scripts.
 
 **Q: How do I develop my smart contract?**  
-A: You should fork the Qubic core repository, switch to the madrid-2025 branch, and modify the HM25.h template file with your smart contract code. You can also modify files in the contract_core and contracts folders if needed, but this is not recommended for beginners.
+A: You should fork the Qubic core repository, switch to the testnets/release-253 branch, and modify the random.h template file with your smart contract code. You can also modify files in the contract_core and contracts folders if needed, but this is not recommended for beginners.
 
 **Q: How do I test my smart contract?**  
 A: After developing your smart contract, contact us on the #dev channel on Discord. We'll provide you with SSH access to a test node where you can run the deployment script. After successful deployment, you can use the Qubic CLI to interact with your contract.
 
 **Q: Can I update my smart contract after it's deployed?**  
-A: Yes. Simply make your changes to the HM25.h file in your forked repository, and then run the deployment script again on the test node.
+A: Yes. Simply make your changes to the random.h file in your forked repository, and then run the deployment script again on the test node.
 
 **Q: How do I know if my smart contract has issues?**  
 A: When you run the deployment script, it will compile your code. If there are any issues, the deployment will fail, and the logs will provide information about what went wrong.
